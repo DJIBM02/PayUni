@@ -1,0 +1,39 @@
+<?XML version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PayUni.Pages.FeesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource SurfaceLight}"
+    Title="Frais">
+
+    <VerticalStackLayout Padding="16" Spacing="16">
+        <!-- Search -->
+        <SearchBar
+            Placeholder="Rechercher des frais..."
+            Text="{Binding SearchText}"
+            PlaceholderColor="{StaticResource TextSecondary}"
+            TextColor="{StaticResource TextPrimary}"
+            BackgroundColor="{StaticResource PrimaryLight}"
+            CornerRadius="8" />
+
+        <!-- Fees List -->
+        <RefreshView Command="{Binding LoadFeesCommand}" IsRefreshing="{Binding IsLoading}">
+            <CollectionView ItemsSource="{Binding FilteredFees}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="12" Margin="0,4" Spacing="8" BorderColor="{StaticResource BorderColor}" BorderWidth="1" CornerRadius="8">
+                            <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" />
+                            <Label Text="{Binding Description}" Style="{StaticResource CaptionStyle}" />
+                            <HorizontalStackLayout Spacing="16">
+                                <Label Text="{Binding Amount, StringFormat='Montant: {0:C}'}" FontAttributes="Bold" />
+                                <Label Text="{Binding Status}" TextColor="{StaticResource Accent}" FontSize="12" />
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding DueDate, StringFormat='Echéance: {0:dd/MM/yyyy}'}" Style="{StaticResource CaptionStyle}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </VerticalStackLayout>
+
+</ContentPage>

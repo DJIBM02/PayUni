@@ -1,0 +1,56 @@
+<?XML version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PayUni.Pages.PaymentPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource SurfaceLight}"
+    Title="Paiement">
+
+    <VerticalStackLayout Padding="20" Spacing="16">
+        <Label Text="Effectuer un paiement" Style="{StaticResource HeadingStyle}" />
+
+        <Entry
+            Placeholder="Montant (€)"
+            Text="{Binding Amount}"
+            Keyboard="Numeric"
+            PlaceholderColor="{StaticResource TextSecondary}"
+            TextColor="{StaticResource TextPrimary}"
+            Padding="12"
+            BackgroundColor="{StaticResource PrimaryLight}"
+            CornerRadius="8" />
+
+        <Entry
+            Placeholder="Description"
+            Text="{Binding Description}"
+            PlaceholderColor="{StaticResource TextSecondary}"
+            TextColor="{StaticResource TextPrimary}"
+            Padding="12"
+            BackgroundColor="{StaticResource PrimaryLight}"
+            CornerRadius="8" />
+
+        <Picker
+            Title="Méthode de paiement"
+            ItemsSource="{Static local:PaymentMethods.Methods}"
+            SelectedItem="{Binding PaymentMethod}"
+            TextColor="{StaticResource TextPrimary}"
+            BackgroundColor="{StaticResource PrimaryLight}" />
+
+        <Label
+            Text="{Binding StatusMessage}"
+            TextColor="{StaticResource Accent}"
+            FontSize="{StaticResource CaptionSize}"
+            IsVisible="{Binding StatusMessage, Converter={StaticResource StringToBool}}" />
+
+        <Button
+            Text="Confirmer le paiement"
+            Command="{Binding ProcessPaymentCommand}"
+            Style="{StaticResource PrimaryButtonStyle}"
+            IsEnabled="{Binding IsProcessing, Converter={StaticResource InvertedBoolConverter}}" />
+
+        <Button
+            Text="Annuler"
+            Command="{Binding CancelCommand}"
+            Style="{StaticResource SecondaryButtonStyle}" />
+    </VerticalStackLayout>
+
+</ContentPage>

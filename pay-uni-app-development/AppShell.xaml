@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<Shell
+    x:Class="PayUni.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    FlyoutBehavior="Disabled"
+    BackgroundColor="{StaticResource SurfaceLight}">
+
+    <TabBar>
+        <!-- Dashboard Tab -->
+        <ShellContent
+            Title="Dashboard"
+            Icon="icon_dashboard.png"
+            ContentTemplate="{DataTemplate local:DashboardPage}"
+            Route="dashboard" />
+
+        <!-- Fees Tab -->
+        <ShellContent
+            Title="Frais"
+            Icon="icon_fees.png"
+            ContentTemplate="{DataTemplate local:FeesPage}"
+            Route="fees" />
+
+        <!-- Payment Tab -->
+        <ShellContent
+            Title="Paiement"
+            Icon="icon_payment.png"
+            ContentTemplate="{DataTemplate local:PaymentPage}"
+            Route="payment" />
+
+        <!-- Profile Tab -->
+        <ShellContent
+            Title="Profil"
+            Icon="icon_profile.png"
+            ContentTemplate="{DataTemplate local:ProfilePage}"
+            Route="profile" />
+    </TabBar>
+
+</Shell>

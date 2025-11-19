@@ -1,0 +1,83 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PayUni.App">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Color Palette -->
+            <Color x:Key="PrimaryBrand">#0066FF</Color>
+            <Color x:Key="PrimaryLight">#E6F0FF</Color>
+            <Color x:Key="Accent">#10B981</Color>
+            <Color x:Key="AccentDanger">#EF4444</Color>
+            
+            <!-- Neutrals -->
+            <Color x:Key="SurfaceLight">#FFFFFF</Color>
+            <Color x:Key="SurfaceDark">#1F2937</Color>
+            <Color x:Key="TextPrimary">#111827</Color>
+            <Color x:Key="TextSecondary">#6B7280</Color>
+            <Color x:Key="BorderColor">#E5E7EB</Color>
+
+            <!-- Font Sizes -->
+            <x:Double x:Key="HeadingXLSize">32</x:Double>
+            <x:Double x:Key="HeadingLargeSize">28</x:Double>
+            <x:Double x:Key="HeadingMediumSize">24</x:Double>
+            <x:Double x:Key="HeadingSmallSize">20</x:Double>
+            <x:Double x:Key="BodyLargeSize">18</x:Double>
+            <x:Double x:Key="BodyMediumSize">16</x:Double>
+            <x:Double x:Key="BodySmallSize">14</x:Double>
+            <x:Double x:Key="CaptionSize">12</x:Double>
+
+            <!-- Spacing -->
+            <Thickness x:Key="PaddingXSmall">4</Thickness>
+            <Thickness x:Key="PaddingSmall">8</Thickness>
+            <Thickness x:Key="PaddingMedium">16</Thickness>
+            <Thickness x:Key="PaddingLarge">24</Thickness>
+            <Thickness x:Key="PaddingXLarge">32</Thickness>
+
+            <!-- Corner Radius -->
+            <CornerRadius x:Key="CornerRadiusSmall">8</CornerRadius>
+            <CornerRadius x:Key="CornerRadiusMedium">12</CornerRadius>
+            <CornerRadius x:Key="CornerRadiusLarge">16</CornerRadius>
+
+            <!-- Styles -->
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBrand}" />
+                <Setter Property="TextColor" Value="{StaticResource SurfaceLight}" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="16,12" />
+                <Setter Property="FontSize" Value="{StaticResource BodyMediumSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource SurfaceLight}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryBrand}" />
+                <Setter Property="BorderColor" Value="{StaticResource PrimaryBrand}" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="16,12" />
+                <Setter Property="FontSize" Value="{StaticResource BodyMediumSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="HeadingStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+                <Setter Property="FontSize" Value="{StaticResource HeadingMediumSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="BodyStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+                <Setter Property="FontSize" Value="{StaticResource BodyMediumSize}" />
+                <Setter Property="LineHeight" Value="1.5" />
+            </Style>
+
+            <Style x:Key="CaptionStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+                <Setter Property="FontSize" Value="{StaticResource CaptionSize}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

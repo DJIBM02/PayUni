@@ -1,0 +1,37 @@
+<?XML version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PayUni.Pages.HistoryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource SurfaceLight}"
+    Title="Historique">
+
+    <RefreshView Command="{Binding LoadHistoryCommand}" IsRefreshing="{Binding IsLoading}">
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label Text="Historique des transactions" Style="{StaticResource HeadingStyle}" />
+
+            <CollectionView ItemsSource="{Binding Transactions}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="12" Margin="0,8" Spacing="8" BorderColor="{StaticResource BorderColor}" BorderWidth="1" CornerRadius="8">
+                            <Label Text="{Binding Description}" FontAttributes="Bold" />
+                            <Label Text="{Binding CreatedAt, StringFormat='Créée le {0:dd/MM/yyyy HH:mm}'}" Style="{StaticResource CaptionStyle}" />
+                            <HorizontalStackLayout Spacing="16">
+                                <Label Text="{Binding Amount, StringFormat='{0:C}'}" FontAttributes="Bold" TextColor="{StaticResource Accent}" />
+                                <Label Text="{Binding Status}" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                            </HorizontalStackLayout>
+                            <Button
+                                Text="Voir le reçu"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:HistoryViewModel}}, Path=ViewReceiptCommand}"
+                                CommandParameter="{Binding .}"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                FontSize="12"
+                                IsVisible="{Binding ReceiptUrl, Converter={StaticResource StringToBool}}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </RefreshView>
+
+</ContentPage>

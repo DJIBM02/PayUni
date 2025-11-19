@@ -1,0 +1,54 @@
+<?XML version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PayUni.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource SurfaceLight}"
+    Title="Tableau de bord">
+
+    <RefreshView Command="{Binding LoadDashboardCommand}" IsRefreshing="{Binding IsLoading}">
+        <VerticalStackLayout Padding="16" Spacing="20">
+            <!-- Balance Card -->
+            <Frame CornerRadius="16" BorderColor="{StaticResource BorderColor}" HasShadow="True" Padding="20">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Solde actuel" Style="{StaticResource CaptionStyle}" />
+                    <Label Text="{Binding Balance, StringFormat='{0:C}'}" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource PrimaryBrand}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Quick Actions -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Actions rapides" Style="{StaticResource HeadingStyle}" />
+                <HorizontalStackLayout Spacing="8">
+                    <Button
+                        Text="Payer"
+                        Command="{Binding NavigateToPaymentCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        HorizontalOptions="FillAndExpand" />
+                    <Button
+                        Text="Historique"
+                        Command="{Binding NavigateToHistoryCommand}"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        HorizontalOptions="FillAndExpand" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Recent Transactions -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Transactions récentes" Style="{StaticResource HeadingStyle}" />
+                <CollectionView ItemsSource="{Binding RecentTransactions}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="12" Spacing="4" BorderColor="{StaticResource BorderColor}" BorderWidth="1" CornerRadius="8">
+                                <Label Text="{Binding Description}" FontAttributes="Bold" />
+                                <Label Text="{Binding CreatedAt, StringFormat='{0:dd/MM/yyyy}'}" Style="{StaticResource CaptionStyle}" />
+                                <Label Text="{Binding Amount, StringFormat='{0:C}'}" TextColor="{StaticResource Accent}" FontAttributes="Bold" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </RefreshView>
+
+</ContentPage>
