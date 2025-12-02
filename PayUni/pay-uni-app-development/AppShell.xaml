@@ -1,0 +1,72 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<Shell
+    x:Class="PayUni.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PayUni.Pages"
+    FlyoutBehavior="Disabled"
+    BackgroundColor="{StaticResource SurfaceLight}">
+
+    <!-- Main Tab Bar -->
+    <TabBar>
+        <!-- Accueil / Dashboard Tab -->
+        <ShellContent
+            Title="Accueil"
+            Icon="dotnet_bot.png"
+            ContentTemplate="{DataTemplate local:DashboardPage}"
+            Route="dashboard" />
+
+        <!-- Frais Tab -->
+        <ShellContent
+            Title="Frais"
+            Icon="dotnet_bot.png"
+            ContentTemplate="{DataTemplate local:FeesPage}"
+            Route="fees" />
+
+        <!-- Payment Tab -->
+        <ShellContent
+            Title="Paiement"
+            Icon="dotnet_bot.png"
+            ContentTemplate="{DataTemplate local:PaymentPage}"
+            Route="payment" />
+
+        <!-- Profile Tab -->
+        <ShellContent
+            Title="Profil"
+            Icon="dotnet_bot.png"
+            ContentTemplate="{DataTemplate local:ProfilePage}"
+            Route="profile" />
+    </TabBar>
+
+    <!-- Additional Routes (not in TabBar) -->
+    <ShellContent
+        Title="Onboarding"
+        ContentTemplate="{DataTemplate local:OnboardingPage}"
+        Route="onboarding"
+        Shell.FlyoutBehavior="Disabled" />
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="login"
+        Shell.FlyoutBehavior="Disabled" />
+
+    <ShellContent
+        Title="Register"
+        ContentTemplate="{DataTemplate local:RegisterPage}"
+        Route="signup"
+        Shell.FlyoutBehavior="Disabled" />
+
+    <ShellContent
+        Title="History"
+        ContentTemplate="{DataTemplate local:HistoryPage}"
+        Route="history"
+        Shell.FlyoutBehavior="Disabled" />
+
+    <ShellContent
+        Title="Payment Confirmation"
+        ContentTemplate="{DataTemplate local:PaymentConfirmationPage}"
+        Route="paymentconfirmation"
+        Shell.FlyoutBehavior="Disabled" />
+
+</Shell>

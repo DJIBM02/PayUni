@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PayUni.Pages.PaymentPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource SurfaceLight}"
+    Title="Paiement">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="24">
+            <!-- Amount Display Card -->
+            <Frame
+                CornerRadius="16"
+                BorderColor="{StaticResource BorderColor}"
+                HasShadow="True"
+                Padding="24"
+                BackgroundColor="{StaticResource SurfaceLight}">
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="Montant"
+                        FontSize="{StaticResource BodyMediumSize}"
+                        TextColor="{StaticResource TextSecondary}" />
+                    <Label
+                        Text="{Binding Amount, StringFormat='{0:N0} FCFA'}"
+                        FontSize="32"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryBrand}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Payment Method Section -->
+            <VerticalStackLayout Spacing="12">
+                <Label
+                    Text="Méthode de paiement"
+                    FontSize="{StaticResource HeadingSmallSize}"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                    <!-- MTN Mobile Money -->
+                    <Frame
+                        Grid.Column="0"
+                        CornerRadius="12"
+                        Padding="16"
+                        HasShadow="False"
+                        BorderColor="{StaticResource BorderColor}"
+                        BackgroundColor="{StaticResource SurfaceLight}">
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding PaymentMethod}" Value="MTN">
+                                <Setter Property="BorderColor" Value="{StaticResource PrimaryBrand}" />
+                                <Setter Property="BorderWidth" Value="2" />
+                            </DataTrigger>
+                        </Frame.Triggers>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectPaymentMethodCommand}" CommandParameter="MTN" />
+                        </Frame.GestureRecognizers>
+
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <!-- MTN Logo Placeholder -->
+                            <Frame
+                                WidthRequest="60"
+                                HeightRequest="60"
+                                CornerRadius="30"
+                                Padding="0"
+                                HasShadow="False"
+                                BackgroundColor="#FFCC00"
+                                HorizontalOptions="Center">
+                                <Label
+                                    Text="MTN"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    TextColor="Black"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center" />
+                            </Frame>
+                            <Label
+                                Text="MTN Momo"
+                                FontSize="{StaticResource BodySmallSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource TextPrimary}"
+                                HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Orange Money -->
+                    <Frame
+                        Grid.Column="1"
+                        CornerRadius="12"
+                        Padding="16"
+                        HasShadow="False"
+                        BorderColor="{StaticResource BorderColor}"
+                        BackgroundColor="{StaticResource SurfaceLight}">
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding PaymentMethod}" Value="Orange">
+                                <Setter Property="BorderColor" Value="{StaticResource PrimaryBrand}" />
+                                <Setter Property="BorderWidth" Value="2" />
+                            </DataTrigger>
+                        </Frame.Triggers>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectPaymentMethodCommand}" CommandParameter="Orange" />
+                        </Frame.GestureRecognizers>
+
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <!-- Orange Logo Placeholder -->
+                            <Frame
+                                WidthRequest="60"
+                                HeightRequest="60"
+                                CornerRadius="30"
+                                Padding="0"
+                                HasShadow="False"
+                                BackgroundColor="#FF6600"
+                                HorizontalOptions="Center">
+                                <Label
+                                    Text="OM"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center" />
+                            </Frame>
+                            <Label
+                                Text="Orange Money"
+                                FontSize="{StaticResource BodySmallSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource TextPrimary}"
+                                HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+            </VerticalStackLayout>
+
+            <!-- Phone Number Input -->
+            <VerticalStackLayout Spacing="8">
+                <Label
+                    Text="Numéro de téléphone"
+                    FontSize="{StaticResource BodyMediumSize}"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <Grid ColumnDefinitions="Auto,*">
+                    <!-- Country Code -->
+                    <Frame
+                        Grid.Column="0"
+                        CornerRadius="8"
+                        Padding="12"
+                        HasShadow="False"
+                        BackgroundColor="{StaticResource PrimaryLight}"
+                        VerticalOptions="Center"
+                        Margin="0,0,8,0">
+                        <Label
+                            Text="+237"
+                            FontSize="{StaticResource BodyMediumSize}"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}"
+                            VerticalTextAlignment="Center" />
+                    </Frame>
+
+                    <!-- Phone Number Entry -->
+                    <Entry
+                        Grid.Column="1"
+                        Placeholder="6 XX XX XX XX"
+                        Text="{Binding PhoneNumber}"
+                        Keyboard="Telephone"
+                        PlaceholderColor="{StaticResource TextSecondary}"
+                        TextColor="{StaticResource TextPrimary}"
+                        Padding="12"
+                        BackgroundColor="{StaticResource PrimaryLight}"
+                        CornerRadius="8" />
+                </Grid>
+            </VerticalStackLayout>
+
+            <!-- Status Message -->
+            <Label
+                Text="{Binding StatusMessage}"
+                TextColor="{StaticResource Accent}"
+                FontSize="{StaticResource BodySmallSize}"
+                HorizontalTextAlignment="Center"
+                IsVisible="{Binding StatusMessage, Converter={StaticResource StringToBool}}" />
+
+            <!-- Confirm Button -->
+            <Button
+                Text="Confirmer"
+                Command="{Binding ProcessPaymentCommand}"
+                Style="{StaticResource PrimaryButtonStyle}"
+                IsEnabled="{Binding IsProcessing, Converter={StaticResource InvertedBoolConverter}}"
+                HeightRequest="50"
+                Margin="0,16,0,0" />
+
+            <!-- Cancel Button -->
+            <Button
+                Text="Annuler"
+                Command="{Binding CancelCommand}"
+                Style="{StaticResource SecondaryButtonStyle}"
+                HeightRequest="50" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

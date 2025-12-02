@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PayUni.Pages.PaymentConfirmationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource SurfaceLight}"
+    NavigationPage.HasNavigationBar="False">
+
+    <VerticalStackLayout Padding="40,60,40,40" Spacing="32" VerticalOptions="Center">
+        <!-- Success Icon -->
+        <Frame
+            WidthRequest="80"
+            HeightRequest="80"
+            CornerRadius="40"
+            Padding="0"
+            HasShadow="False"
+            BackgroundColor="{StaticResource Accent}"
+            HorizontalOptions="Center">
+            <Label
+                Text="✓"
+                FontSize="48"
+                FontAttributes="Bold"
+                TextColor="White"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center" />
+        </Frame>
+
+        <!-- Success Message -->
+        <Label
+            Text="Paiement réussi"
+            FontSize="{StaticResource HeadingLargeSize}"
+            FontAttributes="Bold"
+            TextColor="{StaticResource TextPrimary}"
+            HorizontalTextAlignment="Center" />
+
+        <!-- Payment Details Card -->
+        <Frame
+            Style="{StaticResource BalanceCardStyle}"
+            Padding="24">
+            <VerticalStackLayout Spacing="16">
+                <!-- Amount -->
+                <VerticalStackLayout Spacing="4">
+                    <Label
+                        Text="Montant payé"
+                        FontSize="{StaticResource BodySmallSize}"
+                        TextColor="White"
+                        Opacity="0.9" />
+                    <Label
+                        Text="{Binding Amount, StringFormat='{0:N0} FCFA'}"
+                        FontSize="32"
+                        FontAttributes="Bold"
+                        TextColor="White" />
+                </VerticalStackLayout>
+
+                <!-- Transaction Reference -->
+                <VerticalStackLayout Spacing="4">
+                    <Label
+                        Text="Référence de transaction"
+                        FontSize="{StaticResource BodySmallSize}"
+                        TextColor="White"
+                        Opacity="0.9" />
+                    <Label
+                        Text="{Binding TransactionId}"
+                        FontSize="{StaticResource BodySmallSize}"
+                        TextColor="White"
+                        FontAttributes="Bold" />
+                </VerticalStackLayout>
+
+                <!-- Date and Time -->
+                <VerticalStackLayout Spacing="4">
+                    <Label
+                        Text="Date et heure"
+                        FontSize="{StaticResource BodySmallSize}"
+                        TextColor="White"
+                        Opacity="0.9" />
+                    <Label
+                        Text="{Binding TransactionDate, StringFormat='{0:dd MMM yyyy - HH:mm}'}"
+                        FontSize="{StaticResource BodySmallSize}"
+                        TextColor="White"
+                        FontAttributes="Bold" />
+                </VerticalStackLayout>
+
+                <!-- Payment Method -->
+                <VerticalStackLayout Spacing="4">
+                    <Label
+                        Text="Méthode de paiement"
+                        FontSize="{StaticResource BodySmallSize}"
+                        TextColor="White"
+                        Opacity="0.9" />
+                    <Label
+                        Text="{Binding PaymentMethod}"
+                        FontSize="{StaticResource BodySmallSize}"
+                        TextColor="White"
+                        FontAttributes="Bold" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Download Status Message -->
+        <Label
+            Text="{Binding DownloadMessage}"
+            FontSize="{StaticResource BodySmallSize}"
+            TextColor="{StaticResource Accent}"
+            FontAttributes="Bold"
+            HorizontalTextAlignment="Center"
+            IsVisible="{Binding DownloadMessage, Converter={StaticResource StringToBool}}" />
+
+        <!-- Action Buttons -->
+        <VerticalStackLayout Spacing="12">
+            <!-- View History Button -->
+            <Button
+                Text="Voir l'historique"
+                Command="{Binding ViewHistoryCommand}"
+                Style="{StaticResource SecondaryButtonStyle}"
+                HeightRequest="50" />
+
+            <!-- Download Receipt Button -->
+            <Button
+                Command="{Binding DownloadReceiptCommand}"
+                Style="{StaticResource PrimaryButtonStyle}"
+                IsEnabled="{Binding IsDownloading, Converter={StaticResource InvertedBoolConverter}}"
+                HeightRequest="50">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsDownloading}" Value="True">
+                        <Setter Property="Text" Value="Téléchargement..." />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsDownloading}" Value="False">
+                        <Setter Property="Text" Value="Télécharger le quitus" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+
+</ContentPage>

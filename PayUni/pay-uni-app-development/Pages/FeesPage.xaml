@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PayUni.Pages.FeesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PayUni.Models"
+    BackgroundColor="{StaticResource SurfaceLight}"
+    Title="Mes Frais">
+
+    <VerticalStackLayout Padding="16" Spacing="16">
+        <!-- Search Bar -->
+        <SearchBar
+            Placeholder="Rechercher des frais..."
+            Text="{Binding SearchText}"
+            PlaceholderColor="{StaticResource TextSecondary}"
+            TextColor="{StaticResource TextPrimary}"
+            BackgroundColor="{StaticResource PrimaryLight}"
+            CornerRadius="8" />
+
+        <!-- Filter Tabs -->
+        <HorizontalStackLayout Spacing="16" HorizontalOptions="Center">
+            <!-- Tous Tab -->
+            <VerticalStackLayout Spacing="4">
+                <Label
+                    Text="Tous"
+                    FontAttributes="Bold"
+                    FontSize="{StaticResource BodyMediumSize}"
+                    TextColor="{StaticResource TextSecondary}"
+                    HorizontalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding SelectedFilter}" Value="Tous">
+                            <Setter Property="TextColor" Value="{StaticResource PrimaryBrand}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SetFilterCommand}" CommandParameter="Tous" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView HeightRequest="3" WidthRequest="60" HorizontalOptions="Center" BackgroundColor="Transparent">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="BoxView" Binding="{Binding SelectedFilter}" Value="Tous">
+                            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBrand}" />
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+            </VerticalStackLayout>
+
+            <!-- En attente Tab -->
+            <VerticalStackLayout Spacing="4">
+                <Label
+                    Text="En attente"
+                    FontAttributes="Bold"
+                    FontSize="{StaticResource BodyMediumSize}"
+                    TextColor="{StaticResource TextSecondary}"
+                    HorizontalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding SelectedFilter}" Value="En attente">
+                            <Setter Property="TextColor" Value="{StaticResource PrimaryBrand}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SetFilterCommand}" CommandParameter="En attente" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView HeightRequest="3" WidthRequest="80" HorizontalOptions="Center" BackgroundColor="Transparent">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="BoxView" Binding="{Binding SelectedFilter}" Value="En attente">
+                            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBrand}" />
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+            </VerticalStackLayout>
+
+            <!-- Payé Tab -->
+            <VerticalStackLayout Spacing="4">
+                <Label
+                    Text="payé"
+                    FontAttributes="Bold"
+                    FontSize="{StaticResource BodyMediumSize}"
+                    TextColor="{StaticResource TextSecondary}"
+                    HorizontalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding SelectedFilter}" Value="payé">
+                            <Setter Property="TextColor" Value="{StaticResource PrimaryBrand}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SetFilterCommand}" CommandParameter="payé" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView HeightRequest="3" WidthRequest="50" HorizontalOptions="Center" BackgroundColor="Transparent">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="BoxView" Binding="{Binding SelectedFilter}" Value="payé">
+                            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBrand}" />
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+
+        <!-- Fees List -->
+        <RefreshView Command="{Binding LoadFeesCommand}" IsRefreshing="{Binding IsLoading}">
+            <CollectionView ItemsSource="{Binding FilteredFees}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            CornerRadius="12"
+                            BorderColor="{StaticResource BorderColor}"
+                            HasShadow="False"
+                            Padding="16"
+                            Margin="0,6"
+                            BackgroundColor="{StaticResource SurfaceLight}">
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="8">
+                                <!-- Status Badge and Amount -->
+                                <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+                                    <!-- Status Badge -->
+                                    <Frame
+                                        Grid.Column="0"
+                                        BackgroundColor="{StaticResource AccentWarning}"
+                                        CornerRadius="8"
+                                        Padding="8,4"
+                                        HasShadow="False"
+                                        HorizontalOptions="Start">
+                                        <Label
+                                            Text="En attente"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="White" />
+                                    </Frame>
+
+                                    <!-- Amount -->
+                                    <Label
+                                        Grid.Column="2"
+                                        Text="{Binding Amount, StringFormat='{0:N0} FCFA'}"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource TextPrimary}"
+                                        VerticalOptions="Center" />
+                                </Grid>
+
+                                <!-- Fee Name -->
+                                <Label
+                                    Grid.Row="1"
+                                    Text="{Binding Name}"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextPrimary}" />
+
+                                <!-- Due Date -->
+                                <Label
+                                    Grid.Row="2"
+                                    Text="{Binding DueDate, StringFormat='Échéance: {0:dd MMM yyyy}'}"
+                                    FontSize="{StaticResource BodySmallSize}"
+                                    TextColor="{StaticResource TextSecondary}" />
+
+                                <!-- View Details Link -->
+                                <Label
+                                    Grid.Row="3"
+                                    Text="Voir les details >"
+                                    FontSize="{StaticResource BodySmallSize}"
+                                    TextColor="{StaticResource PrimaryBrand}"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="End" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </VerticalStackLayout>
+
+</ContentPage>

@@ -1,0 +1,60 @@
+<?XML version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PayUni.Pages.ProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource SurfaceLight}"
+    Title="Profil">
+
+    <VerticalStackLayout Padding="20" Spacing="16">
+        <Label Text="Mon Profil" Style="{StaticResource HeadingStyle}" />
+
+        <Frame CornerRadius="12" BorderColor="{StaticResource BorderColor}" HasShadow="True" Padding="16">
+            <VerticalStackLayout Spacing="12">
+                <Entry
+                    Placeholder="Prénom"
+                    Text="{Binding CurrentUser.FirstName}"
+                    IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                    PlaceholderColor="{StaticResource TextSecondary}"
+                    TextColor="{StaticResource TextPrimary}"
+                    Padding="12"
+                    BackgroundColor="{StaticResource PrimaryLight}"
+                    CornerRadius="8" />
+
+                <Entry
+                    Placeholder="Nom"
+                    Text="{Binding CurrentUser.LastName}"
+                    IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                    PlaceholderColor="{StaticResource TextSecondary}"
+                    TextColor="{StaticResource TextPrimary}"
+                    Padding="12"
+                    BackgroundColor="{StaticResource PrimaryLight}"
+                    CornerRadius="8" />
+
+                <Entry
+                    Placeholder="Email"
+                    Text="{Binding CurrentUser.Email}"
+                    IsReadOnly="True"
+                    PlaceholderColor="{StaticResource TextSecondary}"
+                    TextColor="{StaticResource TextPrimary}"
+                    Padding="12"
+                    BackgroundColor="{StaticResource BorderColor}"
+                    CornerRadius="8" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <HorizontalStackLayout Spacing="8">
+            <Button
+                Text="{Binding IsEditing, StringFormat='{0:Modifier,Enregistrer}'}"
+                Command="{Binding ToggleEditingCommand}"
+                Style="{StaticResource PrimaryButtonStyle}"
+                HorizontalOptions="FillAndExpand" />
+        </HorizontalStackLayout>
+
+        <Button
+            Text="Se déconnecter"
+            Command="{Binding SignOutCommand}"
+            Style="{StaticResource SecondaryButtonStyle}" />
+    </VerticalStackLayout>
+
+</ContentPage>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PayUni.Pages.OnboardingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="White"
+    NavigationPage.HasNavigationBar="False">
+
+    <Grid Padding="20,60,20,40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Logo PAYUNI -->
+        <HorizontalStackLayout Grid.Row="0" HorizontalOptions="Center" Spacing="8" Margin="0,20,0,40">
+            <!-- Icon/Logo illustration (3 diagonal lines) -->
+            <Label
+                Text="///"
+                FontSize="32"
+                FontAttributes="Bold"
+                TextColor="#4AADE5"
+                Rotation="-45"
+                TranslationY="-5" />
+
+            <Label
+                Text="PAYUNI"
+                FontSize="36"
+                FontAttributes="Bold"
+                TextColor="{StaticResource PrimaryBrand}"
+                HorizontalTextAlignment="Center" />
+        </HorizontalStackLayout>
+
+        <!-- Wallet Illustration -->
+        <Image
+            Grid.Row="1"
+            Source="images.png"
+            HeightRequest="300"
+            WidthRequest="300"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Aspect="AspectFit"
+            Margin="0,40,0,40" />
+
+        <!-- Tagline with page indicator -->
+        <VerticalStackLayout Grid.Row="2" Spacing="20" Margin="0,0,0,40">
+            <Label
+                Text="Paiement des frais universitaires simplifié"
+                FontSize="22"
+                FontAttributes="Bold"
+                TextColor="#2C2C2C"
+                HorizontalTextAlignment="Center"
+                LineHeight="1.3"
+                Margin="20,0,20,0" />
+
+            <!-- Page Indicators -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                <Ellipse
+                    Fill="{StaticResource PrimaryBrand}"
+                    WidthRequest="10"
+                    HeightRequest="10" />
+                <Ellipse
+                    Fill="#D3D3D3"
+                    WidthRequest="10"
+                    HeightRequest="10" />
+                <Ellipse
+                    Fill="#D3D3D3"
+                    WidthRequest="10"
+                    HeightRequest="10" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- Get Started Button -->
+        <Button
+            Grid.Row="3"
+            Text="Commencer"
+            Command="{Binding GetStartedCommand}"
+            BackgroundColor="{StaticResource PrimaryBrand}"
+            TextColor="White"
+            FontSize="18"
+            FontAttributes="Bold"
+            CornerRadius="12"
+            HeightRequest="56"
+            Margin="20,0,20,0" />
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PayUni.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource SurfaceLight}"
+    Title="Accueil">
+
+    <RefreshView Command="{Binding LoadDashboardCommand}" IsRefreshing="{Binding IsLoading}">
+        <ScrollView>
+            <VerticalStackLayout Padding="16" Spacing="20">
+                <!-- User Profile Header -->
+                <Grid ColumnDefinitions="Auto,*,Auto" Padding="4">
+                    <!-- Avatar -->
+                    <Frame
+                        Grid.Column="0"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        CornerRadius="25"
+                        Padding="0"
+                        HasShadow="False"
+                        BorderColor="{StaticResource BorderColor}"
+                        BackgroundColor="{StaticResource PrimaryLight}">
+                        <Label
+                            Text="{Binding CurrentUser.FirstName, StringFormat='{0:0}'}"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBrand}"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center" />
+                    </Frame>
+
+                    <!-- User Info -->
+                    <VerticalStackLayout Grid.Column="1" Margin="12,0,0,0" VerticalOptions="Center" Spacing="2">
+                        <Label
+                            Text="{Binding CurrentUser.FirstName, StringFormat='{0} '}"
+                            FontSize="{StaticResource BodyLargeSize}"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}" />
+                        <Label
+                            Text="{Binding CurrentUser.Matricule}"
+                            FontSize="{StaticResource BodySmallSize}"
+                            TextColor="{StaticResource TextSecondary}" />
+                    </VerticalStackLayout>
+
+                    <!-- Notification Icon -->
+                    <Image
+                        Grid.Column="2"
+                        Source="dotnet_bot.png"
+                        WidthRequest="24"
+                        HeightRequest="24"
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <!-- Balance Card -->
+                <Frame Style="{StaticResource BalanceCardStyle}">
+                    <VerticalStackLayout Spacing="12">
+                        <Label
+                            Text="Solde"
+                            FontSize="{StaticResource BodyMediumSize}"
+                            TextColor="White"
+                            Opacity="0.9" />
+                        <Label
+                            Text="{Binding Balance, StringFormat='{0:N0} FCFA'}"
+                            FontSize="36"
+                            FontAttributes="Bold"
+                            TextColor="White" />
+
+                        <!-- Payment Method Logos -->
+                        <HorizontalStackLayout Spacing="16" Margin="0,8,0,0">
+                            <Frame
+                                BackgroundColor="White"
+                                CornerRadius="8"
+                                Padding="8,4"
+                                HasShadow="False">
+                                <Label
+                                    Text="MTN"
+                                    FontSize="10"
+                                    FontAttributes="Bold"
+                                    TextColor="#FFCC00" />
+                            </Frame>
+                            <Frame
+                                BackgroundColor="White"
+                                CornerRadius="8"
+                                Padding="8,4"
+                                HasShadow="False">
+                                <Label
+                                    Text="Orange"
+                                    FontSize="10"
+                                    FontAttributes="Bold"
+                                    TextColor="#FF6600" />
+                            </Frame>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Quick Actions -->
+                <VerticalStackLayout Spacing="12">
+                    <Label
+                        Text="Actions Rapides"
+                        Style="{StaticResource HeadingStyle}"
+                        FontSize="{StaticResource HeadingSmallSize}" />
+
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+                        <!-- View Fees Button -->
+                        <Button
+                            Grid.Column="0"
+                            Text="Voir les frais"
+                            Command="{Binding NavigateToFeesCommand}"
+                            Style="{StaticResource ActionButtonStyle}"
+                            FontSize="12" />
+
+                        <!-- History Button -->
+                        <Button
+                            Grid.Column="1"
+                            Text="Historique"
+                            Command="{Binding NavigateToHistoryCommand}"
+                            Style="{StaticResource ActionButtonStyle}"
+                            FontSize="12" />
+
+                        <!-- Pay Button -->
+                        <Button
+                            Grid.Column="2"
+                            Text="Payer"
+                            Command="{Binding NavigateToPaymentCommand}"
+                            Style="{StaticResource ActionButtonStyle}"
+                            FontSize="12" />
+                    </Grid>
+                </VerticalStackLayout>
+
+                <!-- Upcoming Fees -->
+                <VerticalStackLayout Spacing="12">
+                    <Label
+                        Text="Frais a venir"
+                        Style="{StaticResource HeadingStyle}"
+                        FontSize="{StaticResource HeadingSmallSize}" />
+
+                    <Frame
+                        CornerRadius="12"
+                        BorderColor="{StaticResource BorderColor}"
+                        HasShadow="False"
+                        Padding="16"
+                        BackgroundColor="{StaticResource SurfaceLight}">
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="8">
+                            <!-- Status Badge -->
+                            <Frame
+                                Grid.Row="0"
+                                Style="{StaticResource StatusBadgePendingStyle}"
+                                HorizontalOptions="Start"
+                                Padding="8,4">
+                                <Label
+                                    Text="En attente"
+                                    FontSize="10"
+                                    FontAttributes="Bold"
+                                    TextColor="White" />
+                            </Frame>
+
+                            <!-- Title and Amount -->
+                            <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+                                <Label
+                                    Grid.Column="0"
+                                    Text="Frais d'inscription"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextPrimary}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Text="750,000 FCFA"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextPrimary}" />
+                            </Grid>
+
+                            <!-- Due Date -->
+                            <Label
+                                Grid.Row="2"
+                                Text="15 Dec. 2024"
+                                FontSize="{StaticResource BodySmallSize}"
+                                TextColor="{StaticResource TextSecondary}" />
+
+                            <!-- View Details Link -->
+                            <Label
+                                Grid.Row="3"
+                                Text="Voir les details >"
+                                FontSize="{StaticResource BodySmallSize}"
+                                TextColor="{StaticResource PrimaryBrand}"
+                                FontAttributes="Bold"
+                                HorizontalOptions="End">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateToFeesCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Recent Transactions -->
+                <VerticalStackLayout Spacing="12">
+                    <Label
+                        Text="Transactions récentes"
+                        Style="{StaticResource HeadingStyle}"
+                        FontSize="{StaticResource HeadingSmallSize}" />
+
+                    <CollectionView ItemsSource="{Binding RecentTransactions}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    CornerRadius="12"
+                                    BorderColor="{StaticResource BorderColor}"
+                                    HasShadow="False"
+                                    Padding="16"
+                                    Margin="0,4"
+                                    BackgroundColor="{StaticResource SurfaceLight}">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                        <!-- Icon Placeholder -->
+                                        <Frame
+                                            Grid.Column="0"
+                                            WidthRequest="40"
+                                            HeightRequest="40"
+                                            CornerRadius="20"
+                                            Padding="0"
+                                            HasShadow="False"
+                                            BackgroundColor="{StaticResource PrimaryLight}">
+                                            <Label
+                                                Text="$"
+                                                FontSize="20"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource PrimaryBrand}"
+                                                HorizontalTextAlignment="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </Frame>
+
+                                        <!-- Transaction Info -->
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                            <Label
+                                                Text="{Binding Description}"
+                                                FontSize="{StaticResource BodyMediumSize}"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource TextPrimary}" />
+                                            <Label
+                                                Text="{Binding CreatedAt, StringFormat='{0:dd MMM yyyy}'}"
+                                                FontSize="{StaticResource BodySmallSize}"
+                                                TextColor="{StaticResource TextSecondary}" />
+                                        </VerticalStackLayout>
+
+                                        <!-- Amount -->
+                                        <Label
+                                            Grid.Column="2"
+                                            Text="{Binding Amount, StringFormat='{0:N0} FCFA'}"
+                                            FontSize="{StaticResource BodyMediumSize}"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource Accent}"
+                                            VerticalOptions="Center" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+
+</ContentPage>
